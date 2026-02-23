@@ -1,0 +1,28 @@
+name: Daily UX Research Update
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 毎日日本時間の午前9時（UTC 0:00）に実行
+  workflow_dispatch: # 手動実行も可能にする
+
+jobs:
+  update-dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run UX Research script
+        run: python ux_researcher.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add ux_dashboard.html UX_Research_Study.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Daily UX Update: $(date +'%Y-%m-%d')" && git push)
