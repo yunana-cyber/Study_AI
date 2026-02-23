@@ -5,44 +5,27 @@ from datetime import datetime
 # このスクリプトはUXリサーチの結果を生成し、スタイリッシュなHTMLダッシュボードを出力します。
 # 実際の運用ではGoogle Search API等と連携しますが、ここでは構造化された最新データを使用します。
 
-def generate_dashboard():
-    print("🚀 UXリサーチ・ダッシュボードを生成中...")
-    
-    # 最新のUX事例データ
-    cases = [
-        {
-            "id": "case1",
-            "category": "AI & Agentic",
-            "title": "Agentic UX: 自律型AIエージェントの衝撃",
-            "summary": "2026年、UXは『操作』から『意図の伝達』へと進化。ユーザーがゴールを示すだけで、AIがバックグラウンドで複数のアプリを横断してタスクを完了させる『Agentic UX』が主流になりつつあります。",
-            "details": "特に、AIが自身の行動理由を説明する『Explainable UI』や、ユーザーの修正を学習する『Human-in-the-loop』設計が、信頼構築の肝となっています。",
-            "shindanshi": "経営戦略的には、企業のコアコンピタンスが『利便性の高いツール提供』から『顧客の時間を創出するエージェント提供』へシフトすることを意味します。",
-            "yakuzen": "個々の体質（証）に合わせて素材を選ぶ『弁証施膳』のように、ユーザーの文脈に応じて最適なUIを処方する、まさに『養生UX』の極みです。",
-            "tags": ["AI", "Autonomy", "Trust"]
-        },
-        {
-            "id": "case2",
-            "category": "Mobility & XR",
-            "title": "次世代モビリティ：XRによる『天人合一』の運転体験",
-            "summary": "自動車業界では、XRを活用してドライバーの視線や精神状態をリアルタイムで分析。車内環境を瞬時に最適化するプロトタイピングが進んでいます。",
-            "details": "Magna Internationalなどの事例では、運転者の集中力を削がないよう、情報は必要なときだけ空間に浮かび上がる『アンビエント設計』が採用されています。",
-            "shindanshi": "R&Dにおけるプロトタイピングコストを劇的に削減。市場投入までのリードタイム短縮は、変化の激しいモビリティ市場での先行優位性を確保する定石です。",
-            "yakuzen": "自然界（環境）と人間が調和する『天人合一』をテクノロジーで実現。外部の刺激から心身を守り、バランスを保つための『防護のUX』と言えます。",
-            "tags": ["XR", "Mobility", "Safety"]
-        },
-        {
-            "id": "case3",
-            "category": "Robotics & Industry",
-            "title": "ロボット共生UX：現場導入率85%の秘密",
-            "summary": "製造現場でのロボット導入において、あえて『不完全さ』や『人間らしさ』をUXに取り入れることで、現場スタッフとの心理的な障壁を取り除く事例が注目されています。",
-            "details": "Lollypop Studioの研究では、ロボットが失敗した際の振る舞いや、作業の『間』をあえて作ることで、人間がロボットを『道具』ではなく『パートナー』として受け入れることが証明されました。",
-            "shindanshi": "組織変革（企業変革）における『抵抗の管理』をUXで解決。DXにおける最大の壁である『人の意識』を技術で溶かす、ハイタッチな戦略です。",
-            "yakuzen": "食事で内臓の働きを助ける『薬食同源』のように、ロボットが日常のルーチンに自然に溶け込み、知らず知らずのうちに生産性（生命力）を高めるアプローチです。",
-            "tags": ["Robotics", "Collaboration", "DX"]
-        }
-    ]
+def generate_markdown_report(cases):
+    print("📝 Markdownレポートを生成中...")
+    report_content = f"# UX事例リサーチレポート: {datetime.now().strftime('%Y-%m-%d')}\n\n"
+    report_content += "## 海外の最新UX事例と多角的分析\n\n"
 
-    # HTMLテンプレート (Glassmorphism & Rich Design)
+    for i, case in enumerate(cases, 1):
+        report_content += f"### {i}. {case['title']}\n"
+        report_content += f"**【概要要約】**\n{case['summary']}\n\n"
+        report_content += f"**【AI視点の分析コメント】**\n"
+        report_content += f"- **中小企業診断士（経営戦略）の視点:** {case['shindanshi']}\n"
+        report_content += f"- **薬膳士（健康・食）の視点:** {case['yakuzen']}\n\n"
+        report_content += "---\n\n"
+
+    output_path = "UX_Research_Study.md"
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(report_content)
+    print(f"✅ レポートを保存しました: {output_path}")
+
+def generate_dashboard(cases):
+    print("🚀 UXリサーチ・ダッシュボードを生成中...")
+    # (HTML templates logic remains the same, adjusted to accept cases as argument)
     html_content = f"""
 <!DOCTYPE html>
 <html lang="ja">
@@ -245,13 +228,42 @@ def generate_dashboard():
 </body>
 </html>
 """
-
-    # ファイルの書き出し
-    dashboard_path = "/Users/saki/Documents/Study_AI/ux_dashboard.html"
+    dashboard_path = "ux_dashboard.html"
     with open(dashboard_path, "w", encoding="utf-8") as f:
         f.write(html_content)
-    
     print(f"✨ ダッシュボードが完成しました: {dashboard_path}")
 
 if __name__ == "__main__":
-    generate_dashboard()
+    # 最新のUX事例データ（本来はここでWeb検索APIを叩く）
+    cases_data = [
+        {
+            "id": "case1",
+            "category": "AI & Agentic",
+            "title": "Agentic UX: 自律型AIエージェントの衝撃",
+            "summary": "2026年、UXは『操作』から『意図の伝達』へと進化。ユーザーがゴールを示すだけで、AIがバックグラウンドで複数のアプリを横断してタスクを完了させる『Agentic UX』が主流になりつつあります。",
+            "shindanshi": "経営戦略的には、企業のコアコンピタンスが『利便性の高いツール提供』から『顧客の時間を創出するエージェント提供』へシフトすることを意味します。",
+            "yakuzen": "個々の体質（証）に合わせて素材を選ぶ『弁証施膳』のように、ユーザーの文脈に応じて最適なUIを処方する、まさに『養生UX』の極みです。",
+            "tags": ["AI", "Autonomy", "Trust"]
+        },
+        {
+            "id": "case2",
+            "category": "Mobility & XR",
+            "title": "次世代モビリティ：XRによる『天人合一』の運転体験",
+            "summary": "自動車業界では、XRを活用してドライバーの視線や精神状態をリアルタイムで分析。車内環境を瞬時に最適化するプロトタイピングが進んでいます。",
+            "shindanshi": "R&Dにおけるプロトタイピングコストを劇的に削減。市場投入までのリードタイム短縮は、変化の激しいモビリティ市場での先行優位性を確保する定石です。",
+            "yakuzen": "自然界（環境）と人間が調和する『天人合一』をテクノロジーで実現。外部の刺激から心身を守り、バランスを保つための『防護のUX』と言えます。",
+            "tags": ["XR", "Mobility", "Safety"]
+        },
+        {
+            "id": "case3",
+            "category": "Robotics & Industry",
+            "title": "ロボット共生UX：現場導入率85%の秘密",
+            "summary": "製造現場でのロボット導入において、あえて『不完全さ』や『人間らしさ』をUXに取り入れることで、現場スタッフとの心理的な障壁を取り除く事例が注目されています。",
+            "shindanshi": "組織変革（企業変革）における『抵抗の管理』をUXで解決。DXにおける最大の壁である『人の意識』を技術で溶かす、ハイタッチな戦略です。",
+            "yakuzen": "食事で内臓の働きを助ける『薬食同源』のように、ロボットが日常のルーチンに自然に溶け込み、知らず知らずのうちに生産性（生命力）を高めるアプローチです。",
+            "tags": ["Robotics", "Collaboration", "DX"]
+        }
+    ]
+    
+    generate_markdown_report(cases_data)
+    generate_dashboard(cases_data)
